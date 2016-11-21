@@ -1,0 +1,1 @@
+include ':app', ':netty', ':setmax', ':AndroidPowerControl_2_0_0', 'GPIO', 'Netty001', 'AndroidPowerControl_1_0_2', 'BuglyUpgradeDemo'

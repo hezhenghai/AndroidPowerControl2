@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/AndroidPowerControl2.iml" filepath="$PROJECT_DIR$/AndroidPowerControl2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/AndroidPowerControl_1_0_2/AndroidPowerControl_1_0_2.iml" filepath="$PROJECT_DIR$/AndroidPowerControl_1_0_2/AndroidPowerControl_1_0_2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/AndroidPowerControl_2_0_0/AndroidPowerControl_2_0_0.iml" filepath="$PROJECT_DIR$/AndroidPowerControl_2_0_0/AndroidPowerControl_2_0_0.iml" />
+      <module fileurl="file://$PROJECT_DIR$/BuglyUpgradeDemo/BuglyUpgradeDemo.iml" filepath="$PROJECT_DIR$/BuglyUpgradeDemo/BuglyUpgradeDemo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/GPIO/GPIO.iml" filepath="$PROJECT_DIR$/GPIO/GPIO.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Netty001/Netty001.iml" filepath="$PROJECT_DIR$/Netty001/Netty001.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/netty/netty.iml" filepath="$PROJECT_DIR$/netty/netty.iml" />
+      <module fileurl="file://$PROJECT_DIR$/setmax/setmax.iml" filepath="$PROJECT_DIR$/setmax/setmax.iml" />
+    </modules>
+  </component>
+</project>

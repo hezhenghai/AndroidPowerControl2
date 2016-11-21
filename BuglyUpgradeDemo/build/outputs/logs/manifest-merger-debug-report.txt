@@ -1,0 +1,96 @@
+-- Merging decision tree log ---
+manifest
+ADDED from E:\AndroidStudioProjects\AndroidPowerControl2\BuglyUpgradeDemo\src\main\AndroidManifest.xml:2:1-42:12
+	package
+		ADDED from E:\AndroidStudioProjects\AndroidPowerControl2\BuglyUpgradeDemo\src\main\AndroidManifest.xml:3:5-37
+		INJECTED from E:\AndroidStudioProjects\AndroidPowerControl2\BuglyUpgradeDemo\src\main\AndroidManifest.xml
+		INJECTED from E:\AndroidStudioProjects\AndroidPowerControl2\BuglyUpgradeDemo\src\main\AndroidManifest.xml
+	android:versionName
+		INJECTED from E:\AndroidStudioProjects\AndroidPowerControl2\BuglyUpgradeDemo\src\main\AndroidManifest.xml
+		INJECTED from E:\AndroidStudioProjects\AndroidPowerControl2\BuglyUpgradeDemo\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from E:\AndroidStudioProjects\AndroidPowerControl2\BuglyUpgradeDemo\src\main\AndroidManifest.xml:2:11-69
+	android:versionCode
+		INJECTED from E:\AndroidStudioProjects\AndroidPowerControl2\BuglyUpgradeDemo\src\main\AndroidManifest.xml
+		INJECTED from E:\AndroidStudioProjects\AndroidPowerControl2\BuglyUpgradeDemo\src\main\AndroidManifest.xml
+uses-permission#android.permission.READ_PHONE_STATE
+ADDED from E:\AndroidStudioProjects\AndroidPowerControl2\BuglyUpgradeDemo\src\main\AndroidManifest.xml:6:5-75
+	android:name
+		ADDED from E:\AndroidStudioProjects\AndroidPowerControl2\BuglyUpgradeDemo\src\main\AndroidManifest.xml:6:22-72
+uses-permission#android.permission.INTERNET
+ADDED from E:\AndroidStudioProjects\AndroidPowerControl2\BuglyUpgradeDemo\src\main\AndroidManifest.xml:7:5-67
+	android:name
+		ADDED from E:\AndroidStudioProjects\AndroidPowerControl2\BuglyUpgradeDemo\src\main\AndroidManifest.xml:7:22-64
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from E:\AndroidStudioProjects\AndroidPowerControl2\BuglyUpgradeDemo\src\main\AndroidManifest.xml:8:5-79
+	android:name
+		ADDED from E:\AndroidStudioProjects\AndroidPowerControl2\BuglyUpgradeDemo\src\main\AndroidManifest.xml:8:22-76
+uses-permission#android.permission.ACCESS_WIFI_STATE
+ADDED from E:\AndroidStudioProjects\AndroidPowerControl2\BuglyUpgradeDemo\src\main\AndroidManifest.xml:9:5-76
+	android:name
+		ADDED from E:\AndroidStudioProjects\AndroidPowerControl2\BuglyUpgradeDemo\src\main\AndroidManifest.xml:9:22-73
+uses-permission#android.permission.READ_LOGS
+ADDED from E:\AndroidStudioProjects\AndroidPowerControl2\BuglyUpgradeDemo\src\main\AndroidManifest.xml:10:5-68
+	android:name
+		ADDED from E:\AndroidStudioProjects\AndroidPowerControl2\BuglyUpgradeDemo\src\main\AndroidManifest.xml:10:22-65
+uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
+ADDED from E:\AndroidStudioProjects\AndroidPowerControl2\BuglyUpgradeDemo\src\main\AndroidManifest.xml:12:5-81
+	android:name
+		ADDED from E:\AndroidStudioProjects\AndroidPowerControl2\BuglyUpgradeDemo\src\main\AndroidManifest.xml:12:22-78
+application
+ADDED from E:\AndroidStudioProjects\AndroidPowerControl2\BuglyUpgradeDemo\src\main\AndroidManifest.xml:14:5-40:19
+MERGED from [com.android.support:appcompat-v7:23.0.0] E:\AndroidStudioProjects\AndroidPowerControl2\BuglyUpgradeDemo\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.0.0\AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:support-v4:23.0.0] E:\AndroidStudioProjects\AndroidPowerControl2\BuglyUpgradeDemo\build\intermediates\exploded-aar\com.android.support\support-v4\23.0.0\AndroidManifest.xml:22:5-20
+	android:label
+		ADDED from E:\AndroidStudioProjects\AndroidPowerControl2\BuglyUpgradeDemo\src\main\AndroidManifest.xml:18:9-41
+	android:supportsRtl
+		ADDED from E:\AndroidStudioProjects\AndroidPowerControl2\BuglyUpgradeDemo\src\main\AndroidManifest.xml:19:9-35
+	android:allowBackup
+		ADDED from E:\AndroidStudioProjects\AndroidPowerControl2\BuglyUpgradeDemo\src\main\AndroidManifest.xml:16:9-35
+	android:icon
+		ADDED from E:\AndroidStudioProjects\AndroidPowerControl2\BuglyUpgradeDemo\src\main\AndroidManifest.xml:17:9-43
+	android:theme
+		ADDED from E:\AndroidStudioProjects\AndroidPowerControl2\BuglyUpgradeDemo\src\main\AndroidManifest.xml:20:9-40
+	android:name
+		ADDED from E:\AndroidStudioProjects\AndroidPowerControl2\BuglyUpgradeDemo\src\main\AndroidManifest.xml:15:9-38
+meta-data#com.tencent.rdm.uuid
+ADDED from E:\AndroidStudioProjects\AndroidPowerControl2\BuglyUpgradeDemo\src\main\AndroidManifest.xml:22:2-104
+	android:value
+		ADDED from E:\AndroidStudioProjects\AndroidPowerControl2\BuglyUpgradeDemo\src\main\AndroidManifest.xml:22:49-101
+	android:name
+		ADDED from E:\AndroidStudioProjects\AndroidPowerControl2\BuglyUpgradeDemo\src\main\AndroidManifest.xml:22:13-48
+activity#com.bugly.upgrade.demo.MainActivity
+ADDED from E:\AndroidStudioProjects\AndroidPowerControl2\BuglyUpgradeDemo\src\main\AndroidManifest.xml:23:9-29:20
+	android:name
+		ADDED from E:\AndroidStudioProjects\AndroidPowerControl2\BuglyUpgradeDemo\src\main\AndroidManifest.xml:23:19-47
+intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
+ADDED from E:\AndroidStudioProjects\AndroidPowerControl2\BuglyUpgradeDemo\src\main\AndroidManifest.xml:24:13-28:29
+action#android.intent.action.MAIN
+ADDED from E:\AndroidStudioProjects\AndroidPowerControl2\BuglyUpgradeDemo\src\main\AndroidManifest.xml:25:17-69
+	android:name
+		ADDED from E:\AndroidStudioProjects\AndroidPowerControl2\BuglyUpgradeDemo\src\main\AndroidManifest.xml:25:25-66
+category#android.intent.category.LAUNCHER
+ADDED from E:\AndroidStudioProjects\AndroidPowerControl2\BuglyUpgradeDemo\src\main\AndroidManifest.xml:27:17-77
+	android:name
+		ADDED from E:\AndroidStudioProjects\AndroidPowerControl2\BuglyUpgradeDemo\src\main\AndroidManifest.xml:27:27-74
+activity#com.bugly.upgrade.demo.OtherActivity
+ADDED from E:\AndroidStudioProjects\AndroidPowerControl2\BuglyUpgradeDemo\src\main\AndroidManifest.xml:32:9-50
+	android:name
+		ADDED from E:\AndroidStudioProjects\AndroidPowerControl2\BuglyUpgradeDemo\src\main\AndroidManifest.xml:32:19-48
+activity#com.tencent.bugly.beta.ui.BetaActivity
+ADDED from E:\AndroidStudioProjects\AndroidPowerControl2\BuglyUpgradeDemo\src\main\AndroidManifest.xml:37:9-39:64
+	android:theme
+		ADDED from E:\AndroidStudioProjects\AndroidPowerControl2\BuglyUpgradeDemo\src\main\AndroidManifest.xml:39:13-61
+	android:name
+		ADDED from E:\AndroidStudioProjects\AndroidPowerControl2\BuglyUpgradeDemo\src\main\AndroidManifest.xml:38:13-66
+uses-sdk
+INJECTED from E:\AndroidStudioProjects\AndroidPowerControl2\BuglyUpgradeDemo\src\main\AndroidManifest.xml reason: use-sdk injection requested
+MERGED from [com.android.support:appcompat-v7:23.0.0] E:\AndroidStudioProjects\AndroidPowerControl2\BuglyUpgradeDemo\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.0.0\AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:support-v4:23.0.0] E:\AndroidStudioProjects\AndroidPowerControl2\BuglyUpgradeDemo\build\intermediates\exploded-aar\com.android.support\support-v4\23.0.0\AndroidManifest.xml:20:5-43
+MERGED from [com.tencent.bugly:crashreport_upgrade:1.1.7] E:\AndroidStudioProjects\AndroidPowerControl2\BuglyUpgradeDemo\build\intermediates\exploded-aar\com.tencent.bugly\crashreport_upgrade\1.1.7\AndroidManifest.xml:7:5-9:41
+	android:targetSdkVersion
+		INJECTED from E:\AndroidStudioProjects\AndroidPowerControl2\BuglyUpgradeDemo\src\main\AndroidManifest.xml
+		INJECTED from E:\AndroidStudioProjects\AndroidPowerControl2\BuglyUpgradeDemo\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from E:\AndroidStudioProjects\AndroidPowerControl2\BuglyUpgradeDemo\src\main\AndroidManifest.xml
+		INJECTED from E:\AndroidStudioProjects\AndroidPowerControl2\BuglyUpgradeDemo\src\main\AndroidManifest.xml

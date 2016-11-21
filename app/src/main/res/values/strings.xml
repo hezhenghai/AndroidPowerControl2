@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">AndroidPowerControl</string>
+    <string name="ok">OK</string>
+    <string name="please_input_password">Please input administrator\'s password</string>
+    <string name="wrong_password">Wrong password</string>
+    <string name="password_can_not_be_empty">Password cann\'t be empty</string>
+    <string name="change_password">Change password</string>
+    <string name="old_password">Old Password</string>
+    <string name="new_password">New Password</string>
+    <string name="confirm_password">Confirm Password</string>
+</resources>

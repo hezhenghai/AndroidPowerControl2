@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/transparent">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@null">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:src="@drawable/dialog" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            android:orientation="vertical">
+
+
+            <EditText
+                android:id="@+id/et_old_pw"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/password_enter"
+                android:ems="8"
+                android:gravity="center"
+                android:hint="@string/old_password"
+                android:inputType="textPassword"
+                android:singleLine="true"
+                android:textColor="#687318"
+                android:textColorHint="#687318"
+                android:textCursorDrawable="@null"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/et_new_pw"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-5dp"
+                android:background="@drawable/password_enter"
+                android:ems="8"
+                android:gravity="center"
+                android:hint="@string/new_password"
+                android:inputType="textPassword"
+                android:singleLine="true"
+                android:textColor="#687318"
+                android:textColorHint="#687318"
+                android:textCursorDrawable="@null"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/et_confirm_pw"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-5dp"
+                android:background="@drawable/password_enter"
+                android:ems="8"
+                android:gravity="center"
+                android:hint="@string/confirm_password"
+                android:inputType="textPassword"
+                android:singleLine="true"
+                android:textColor="#687318"
+                android:textColorHint="#687318"
+                android:textCursorDrawable="@null"
+                android:textSize="20sp" />
+
+
+        </LinearLayout>
+
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="150dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/ok"
+                android:textColor="#2eb7aa"
+                android:textSize="20sp" />
+
+            <ImageButton
+                android:id="@+id/ib_ok"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:src="@drawable/dialog_sure_button"
+                android:textColor="#2eb7aa"
+                android:textSize="20sp" />
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+</RelativeLayout>
