@@ -30,6 +30,11 @@ public class MyConfig {
     public static final String getStateUrl = MyConfig.URL + "/Power/getPowerState";
 
     /**
+     * 获取总时间
+     */
+    public static final String getTotalTimeUrl = MyConfig.URL + "/Power/getTotalTime";
+
+    /**
      * 系统运行时间保存
      */
     public static final String TOTAL_TIME = "total_time";

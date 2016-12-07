@@ -9,14 +9,7 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/AndroidPowerControl_1_0_2" />
             <option value="$PROJECT_DIR$/AndroidPowerControl_2_0_0" />
-            <option value="$PROJECT_DIR$/BuglyUpgradeDemo" />
-            <option value="$PROJECT_DIR$/GPIO" />
-            <option value="$PROJECT_DIR$/Netty001" />
-            <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/netty" />
-            <option value="$PROJECT_DIR$/setmax" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

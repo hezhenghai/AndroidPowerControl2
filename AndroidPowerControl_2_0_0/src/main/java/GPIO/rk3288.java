@@ -274,10 +274,10 @@ public class rk3288 {
     //GPIO7
     public static final int RK30_PIN7_PA0 = ((7 * RK_GPIO_BANK_OFFSET) + GPIO_A0);
     public static final int RK30_PIN7_PA1 = ((7 * RK_GPIO_BANK_OFFSET) + GPIO_A1);
-    public static final int RK30_PIN7_PA2 = ((7 * RK_GPIO_BANK_OFFSET) + GPIO_A2);//((7 * RK_GPIO_BANK_OFFSET) + GPIO_A2);
-    public static final int RK30_PIN7_PA3 = ((7 * RK_GPIO_BANK_OFFSET) + GPIO_A3);
+    public static final int RK30_PIN7_PA2 = ((7 * RK_GPIO_BANK_OFFSET) + GPIO_A2);// 屏供电
+    public static final int RK30_PIN7_PA3 = ((7 * RK_GPIO_BANK_OFFSET) + GPIO_A3);// 屏背光
     public static final int RK30_PIN7_PA4 = ((7 * RK_GPIO_BANK_OFFSET) + GPIO_A4);
-    public static final int RK30_PIN7_PA5 = ((7 * RK_GPIO_BANK_OFFSET) + GPIO_A5);
+    public static final int RK30_PIN7_PA5 = ((7 * RK_GPIO_BANK_OFFSET) + GPIO_A5);// 5寸屏，触摸线控制（控制后，唤醒变慢）
     public static final int RK30_PIN7_PA6 = ((7 * RK_GPIO_BANK_OFFSET) + GPIO_A6);
     public static final int RK30_PIN7_PA7 = ((7 * RK_GPIO_BANK_OFFSET) + GPIO_A7);
     public static final int RK30_PIN7_PB0 = ((7 * RK_GPIO_BANK_OFFSET) + GPIO_B0);
@@ -308,7 +308,7 @@ public class rk3288 {
     public static final int RK30_PIN8_PA0 = ((8 * RK_GPIO_BANK_OFFSET) + GPIO_A0);
     public static final int RK30_PIN8_PA1 = ((8 * RK_GPIO_BANK_OFFSET) + GPIO_A1);
     public static final int RK30_PIN8_PA2 = ((8 * RK_GPIO_BANK_OFFSET) + GPIO_A2);
-    public static final int RK30_PIN8_PA3 = ((8 * RK_GPIO_BANK_OFFSET) + GPIO_A3);//259  休眠
+    public static final int RK30_PIN8_PA3 = ((8 * RK_GPIO_BANK_OFFSET) + GPIO_A3);//259  USB控制
     public static final int RK30_PIN8_PA4 = ((8 * RK_GPIO_BANK_OFFSET) + GPIO_A4);
     public static final int RK30_PIN8_PA5 = ((8 * RK_GPIO_BANK_OFFSET) + GPIO_A5);
     public static final int RK30_PIN8_PA6 = ((8 * RK_GPIO_BANK_OFFSET) + GPIO_A6);

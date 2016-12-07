@@ -28,11 +28,14 @@ import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.dj.androidpowercontrol_2_0_0.entity.MyConfig;
 import com.dj.androidpowercontrol_2_0_0.entity.PowerStateMsg;
+import com.dj.androidpowercontrol_2_0_0.entity.TotalTimeData;
 import com.dj.androidpowercontrol_2_0_0.entity.User;
 import com.dj.androidpowercontrol_2_0_0.entity.userData;
+import com.dj.androidpowercontrol_2_0_0.util.NetWorkUtils;
 import com.dj.androidpowercontrol_2_0_0.util.Util;
 import com.dj.androidpowercontrol_2_0_0.view.BindPidDialog;
 import com.dj.androidpowercontrol_2_0_0.view.CustomDialog;
+import com.dj.androidpowercontrol_2_0_0.view.LoadProgressDialog;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.tencent.bugly.beta.Beta;
@@ -41,7 +44,6 @@ import com.zhy.http.okhttp.callback.StringCallback;
 
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.UUID;
 
 import GPIO.hardware;
 import GPIO.rk3288;
@@ -50,12 +52,25 @@ import okhttp3.Call;
 public class MainActivity extends Activity {
 
     /**
+     * 绑定dialog
+     */
+    private BindPidDialog.Builder bindBuilder = null;
+    private BindPidDialog bindDialog = null;
+
+
+    /**
+     * 加载进度条
+     */
+    private LoadProgressDialog.Builder loadBuilder = null;
+    private LoadProgressDialog loadDialog = null;
+
+
+    /**
      * 地址信息
      */
     private String longitude;
     private String latitude;
     private String address;
-
 
     /**
      * 从服务器获取的总时间
@@ -70,13 +85,13 @@ public class MainActivity extends Activity {
     /**
      * 网络设置提示框
      */
-    private CustomDialog.Builder builder;
-    private CustomDialog dialog;
+    private CustomDialog.Builder netBuilder;
+    private CustomDialog netDialog;
 
     /**
      * 多长时间请求一次，获取状态
      */
-    private static final int INTERVAL = 10;
+    private static final int INTERVAL = 60 * 60;
     private int intervalTime = 0;
 
     /**
@@ -130,10 +145,10 @@ public class MainActivity extends Activity {
     private long mTime = 0L;
 
     /**
-     * 用于定时检测wifi信号的Time间隔
+     * 用于定时检测wifi信号的时间间隔
      */
-    private static final int WIFITIME_INTERVAL = 10;
-    private int wifiTime;
+//    private static final int WIFITIME_INTERVAL = 2;
+//    private int wifiTime;
 
     /**
      * wifi信号检测
@@ -174,9 +189,10 @@ public class MainActivity extends Activity {
                     getPowerState();
                 }
                 //设定一定时间检查一下wifi信号
-                wifiTime++;
-                if (wifiTime > WIFITIME_INTERVAL) {
-                    wifiTime = 0;
+//                wifiTime++;
+//                if (wifiTime > WIFITIME_INTERVAL) {
+//                    wifiTime = 0;
+                try {
                     wifiInfo = wifiManager.getConnectionInfo();
                     level = wifiInfo.getRssi();
                     Util.showLog("TAG", "wifi-------------- " + level);
@@ -190,8 +206,10 @@ public class MainActivity extends Activity {
                     } else {
                         iv_wifi.setImageResource(R.drawable.icon_wifi_no);
                     }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-
+//                }
             }
             // 网络断开
             if (msg.what == 0x444) {
@@ -201,8 +219,8 @@ public class MainActivity extends Activity {
             }
             //网络连接成功
             if (msg.what == 0x555) {
-                if (dialog != null) {
-                    dialog.dismiss();
+                if (netDialog != null) {
+                    netDialog.dismiss();
                 }
                 Util.showLog("TAG", "55555555555555555555");
                 iv_wifi.setImageResource(R.drawable.icon_wifi_strong);
@@ -229,6 +247,12 @@ public class MainActivity extends Activity {
          * 打开gpio
          */
         hw.openGpioDev();
+
+        /**
+         * 修改版本升级对话框中英文
+         */
+        setUpdataLanguage();
+
         // 获得WifiManager
         wifiManager = (WifiManager) getSystemService(WIFI_SERVICE);
         // 初始化控件
@@ -260,8 +284,13 @@ public class MainActivity extends Activity {
         tv_cupId = (TextView) findViewById(R.id.tv_cupId);
         iv_stop = (ImageView) findViewById(R.id.iv_stop);
         iv_working = (ImageView) findViewById(R.id.iv_working);
+        bindBuilder = new BindPidDialog.Builder(MainActivity.this);
+        bindDialog = bindBuilder.create();
+        bindDialog.setCanceledOnTouchOutside(false);// 点击外部区域不关闭
+        loadBuilder = new LoadProgressDialog.Builder(MainActivity.this);
+        loadDialog = loadBuilder.create();
+        loadDialog.setCanceledOnTouchOutside(false);// 点击外部区域不关闭
     }
-
 
     /**
      * 设置监听
@@ -270,35 +299,45 @@ public class MainActivity extends Activity {
         ib_wifi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Settings.ACTION_WIFI_SETTINGS);//系统设置界面
+                Intent intent = new Intent(Settings.ACTION_WIFI_SETTINGS);// 系统设置界面
                 startActivity(intent);
             }
         });
         tv_cupId.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                final BindPidDialog.Builder builder = new BindPidDialog.Builder(MainActivity.this);
-                final BindPidDialog dialog = builder.create();
-                builder.tv_bind.setOnClickListener(new View.OnClickListener() {
+                if (!NetWorkUtils.isNetworkConnected(MainActivity.this)) {
+                    showWifiSetDialog();
+                    return false;
+                }
+                String dID = getDeviceId();
+                if (dID != null) {
+                    bindBuilder.et_bind_id.setHint(dID);
+                }
+                bindBuilder.tv_bind.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        String deviceID = null;
                         try {
-                            saveDeviceId(builder.et_bind_id.getText().toString());
-                            Util.showLog("TAG", builder.et_bind_id.getText().toString());
+//                            saveDeviceId(builder.et_bind_id.getText().toString());
+//                            Util.showLog("TAG", builder.et_bind_id.getText().toString());
+                            deviceID = bindBuilder.et_bind_id.getText().toString();
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-                        // 绑定设备
-                        bindDevice();
-                        dialog.dismiss();
+                        if (deviceID != null && !"".equals(deviceID)) {
+                            // 绑定设备
+                            bindDevice(deviceID);
+                            bindDialog.dismiss();
+                        } else {
+                            Util.showToast(MainActivity.this, "Device id can not be empty!");
+                        }
                     }
                 });
-                dialog.setCanceledOnTouchOutside(false);// 点击外部区域不关闭
-                dialog.show();
+                bindDialog.show();
                 return false;
             }
         });
-
     }
 
     /**
@@ -335,27 +374,8 @@ public class MainActivity extends Activity {
     }
 
 
-//    /**
-//     * 保存pId到本地
-//     */
-//    private void savePId(String string) {
-//        SharedPreferences share = getSharedPreferences(MyConfig.P_ID, MODE_PRIVATE);
-//        SharedPreferences.Editor editor = share.edit();
-//        editor.putString(MyConfig.P_ID, string);
-//        editor.apply();
-//    }
-//
-//    /**
-//     * 获取pid
-//     */
-//    private String getPId() {
-//        SharedPreferences share = getSharedPreferences(MyConfig.P_ID, MODE_PRIVATE);
-//        return share.getString(MyConfig.P_ID, null);
-//    }
-
-
     /**
-     * 保存deviceId到本地，只用于第一次绑定到网络
+     * 保存deviceId到本地
      */
     private void saveDeviceId(String string) {
         SharedPreferences share = getSharedPreferences(MyConfig.DEVICE_ID, MODE_PRIVATE);
@@ -371,25 +391,6 @@ public class MainActivity extends Activity {
         SharedPreferences share = getSharedPreferences(MyConfig.DEVICE_ID, MODE_PRIVATE);
         return share.getString(MyConfig.DEVICE_ID, null);
     }
-
-//    /**
-//     * 保存POWER_ID到本地
-//     */
-//    private void savePowerId(String string) {
-//        SharedPreferences share = getSharedPreferences(MyConfig.POWER_ID, MODE_PRIVATE);
-//        SharedPreferences.Editor editor = share.edit();
-//        editor.putString(MyConfig.POWER_ID, string);
-//        editor.apply();
-//    }
-//
-//    /**
-//     * 获取POWER_ID
-//     */
-//    private String getPowerId() {
-//        SharedPreferences share = getSharedPreferences(MyConfig.POWER_ID, MODE_PRIVATE);
-//        return share.getString(MyConfig.POWER_ID, null);
-//    }
-
 
     /**
      * 保存总运行时间到本地
@@ -455,7 +456,12 @@ public class MainActivity extends Activity {
                 address = location.getAddrStr();
                 Util.showLog("TAG", "---------------" + longitude + "---------" + latitude + "---------" + address);
                 if (longitude != null && latitude != null && address != null) {
-                    bindDevice();
+                    String dID = getDeviceId();
+                    if (dID != null) {
+                        bindDevice(dID);
+                    } else {
+                        getTotalTime();
+                    }
                     mLocationClient.stop();
                 }
             }
@@ -463,6 +469,7 @@ public class MainActivity extends Activity {
         initLocation();
         mLocationClient.start();
     }
+
 
     /**
      * 定位设置
@@ -483,16 +490,59 @@ public class MainActivity extends Activity {
         mLocationClient.setLocOption(option);
     }
 
+    /**
+     * 获取总使用时间
+     */
+    private synchronized void getTotalTime() {
+        Util.showLog("TAG", "getTotalTime------ " + "\npId : " + cpuid);
+        OkHttpUtils
+                .get()
+                .url(MyConfig.getTotalTimeUrl)
+                .addParams("pId", cpuid)
+                .build()
+                .connTimeOut(10000)
+                .readTimeOut(10000)
+                .writeTimeOut(10000)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onError(Call call, final Exception e, int i) {
+                        //获取失败
+                        Util.showLog("TAG", "getTotalTime-----onError---- " + e);
+                        Util.showToast(MainActivity.this, "Please check the network connection!");
+                    }
+
+                    @Override
+                    public void onResponse(final String s, int i) {
+                        //获取成功
+                        Util.showLog("TAG", "getTotalTime---------onResponse----- " + s);
+                        try {
+                            TotalTimeData totaltimedata = new Gson().fromJson(s, TotalTimeData.class);
+                            if (totaltimedata.isSuccess()) {
+                                tt = Long.parseLong(totaltimedata.getData());
+                                if (tt < mTotalTime) {
+                                    updateTime();
+                                }
+                                if (tt > mTotalTime) {
+                                    mTotalTime = tt + mTime;
+                                }
+                            }
+                        } catch (JsonSyntaxException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+    }
 
     /**
      * 发送网络请求，绑定设备
      */
-    private synchronized void bindDevice() {
-        Util.showLog("TAG", "uuid : " + getDeviceId() + "\nlongitude : " + longitude + "\nlatiude : " + latitude + "\ncode : " + MyConfig.CODE + "\npId : " + cpuid + "\naddress : " + address);
+    private synchronized void bindDevice(final String deviceID) {
+        loadDialog.show();
+        Util.showLog("TAG", "uuid : " + deviceID + "\nlongitude : " + longitude + "\nlatiude : " + latitude + "\ncode : " + MyConfig.CODE + "\npId : " + cpuid + "\naddress : " + address);
         OkHttpUtils
                 .get()
                 .url(MyConfig.bindUrl)
-                .addParams("uuid", getDeviceId())
+                .addParams("uuid", deviceID)
                 .addParams("longitude", longitude)
                 .addParams("latitude", latitude)
                 .addParams("code", MyConfig.CODE)
@@ -506,12 +556,14 @@ public class MainActivity extends Activity {
                     @Override
                     public void onError(Call call, final Exception e, int i) {
                         Util.showLog("TAG", "bindDevice------onError--- " + e);
+                        Util.showToast(MainActivity.this, "error");
+                        loadDialog.dismiss();
                     }
 
                     @Override
                     public void onResponse(final String s, int i) {
                         Util.showLog("TAG", "bindDevice-----onResponse---- " + s);
-                        //登录成功
+                        //绑定成功
                         try {
                             User user = new Gson().fromJson(s, User.class);
                             if (user.isSuccess()) {
@@ -525,11 +577,18 @@ public class MainActivity extends Activity {
                                         mTotalTime = tt + mTime;
                                     }
                                 }
+                                Util.showToast(MainActivity.this, "bind success");
+                                saveDeviceId(deviceID);
+                            } else {
+                                // 关闭电源
+//                                closePower();
+                                Util.showToast(MainActivity.this, "bind fail");
                             }
                         } catch (JsonSyntaxException e) {
                             e.printStackTrace();
                         }
                         getPowerState();
+                        loadDialog.dismiss();
                     }
                 });
     }
@@ -539,12 +598,12 @@ public class MainActivity extends Activity {
      * 发送网络请求，更新时间
      */
     private void updateTime() {
-        Util.showLog("TAG", "updateTime------ " + "\ntotaltime : " + String.valueOf(mTotalTime) + "\npowerId : " + cpuid);
+        Util.showLog("TAG", "updateTime------ " + "\ntotaltime : " + String.valueOf(mTotalTime) + "\npId : " + cpuid);
         OkHttpUtils
                 .post()
                 .url(MyConfig.updateUrl)
                 .addParams("totaltime", String.valueOf(mTotalTime))
-                .addParams("deviceId", getDeviceId())
+                .addParams("pId", cpuid)
                 .build()
                 .connTimeOut(10000)
                 .readTimeOut(10000)
@@ -552,13 +611,13 @@ public class MainActivity extends Activity {
                 .execute(new StringCallback() {
                     @Override
                     public void onError(Call call, final Exception e, int i) {
-                        //更新失败
+                        // 更新失败
                         Util.showLog("TAG", "updateTime---onError--- " + e);
                     }
 
                     @Override
                     public void onResponse(final String s, int i) {
-                        //更新成功
+                        // 更新成功
                         Util.showLog("TAG", "updateTime----onResponse-- " + s);
                     }
                 });
@@ -582,6 +641,9 @@ public class MainActivity extends Activity {
                     public void onError(Call call, final Exception e, int i) {
                         //获取失败
                         Util.showLog("TAG", "getPowerState-----onError---- " + e);
+                        // 关闭
+                        closePower();
+                        Util.showToast(MainActivity.this, "Please check the network connection!");
                     }
 
                     @Override
@@ -591,12 +653,20 @@ public class MainActivity extends Activity {
                         try {
                             PowerStateMsg psm = new Gson().fromJson(s, PowerStateMsg.class);
                             if (psm.isSuccess()) {
-                                if (psm.getData() == 0) {
-                                    closePower();
-                                }
-                                if (psm.getData() == 1) {
+//                                if (psm.getData() == 0) {
+//                                    closePower();
+//                                    Util.showLog("TAG", "close");
+//                                }
+                                if ("1".equals(psm.getData())) {
                                     openPower();
+                                    Util.showLog("TAG", "open");
+                                } else {
+                                    closePower();
+                                    Util.showLog("TAG", "close");
                                 }
+                            } else {
+                                closePower();
+                                Util.showLog("TAG", "fail");
                             }
                         } catch (JsonSyntaxException e) {
                             e.printStackTrace();
@@ -609,13 +679,13 @@ public class MainActivity extends Activity {
      * 显示网络设置提示对话框
      */
     private synchronized void showWifiSetDialog() {
-        if (dialog == null) {
-            builder = new CustomDialog.Builder(MainActivity.this);
-            dialog = builder.create();
-            dialog.setCanceledOnTouchOutside(false);// 点击外部区域不关闭
+        if (netDialog == null) {
+            netBuilder = new CustomDialog.Builder(MainActivity.this);
+            netDialog = netBuilder.create();
+            netDialog.setCanceledOnTouchOutside(false);// 点击外部区域不关闭
         }
-        if (!dialog.isShowing()) {
-            dialog.show();
+        if (!netDialog.isShowing()) {
+            netDialog.show();
         }
     }
 
@@ -649,6 +719,36 @@ public class MainActivity extends Activity {
             mTimer = null;
         }
         hw.closeGpioDev();
+    }
+
+
+    /**
+     * 修改版本升级对话框中英文
+     */
+    private void setUpdataLanguage() {
+        Beta.strToastYourAreTheLatestVersion = getResources().getString(R.string.strToastYourAreTheLatestVersion);
+        Beta.strToastCheckUpgradeError = getResources().getString(R.string.strToastCheckUpgradeError);
+        Beta.strToastCheckingUpgrade = getResources().getString(R.string.strToastCheckingUpgrade);
+        Beta.strNotificationDownloading = getResources().getString(R.string.strNotificationDownloading);
+        Beta.strNotificationClickToView = getResources().getString(R.string.strNotificationClickToView);
+        Beta.strNotificationClickToInstall = getResources().getString(R.string.strNotificationClickToInstall);
+        Beta.strNotificationClickToRetry = getResources().getString(R.string.strNotificationClickToRetry);
+        Beta.strNotificationDownloadSucc = getResources().getString(R.string.strNotificationDownloadSucc);
+        Beta.strNotificationDownloadError = getResources().getString(R.string.strNotificationDownloadError);
+        Beta.strNotificationHaveNewVersion = getResources().getString(R.string.strNotificationHaveNewVersion);
+        Beta.strNetworkTipsMessage = getResources().getString(R.string.strNetworkTipsMessage);
+        Beta.strNetworkTipsTitle = getResources().getString(R.string.strNetworkTipsTitle);
+        Beta.strNetworkTipsConfirmBtn = getResources().getString(R.string.strNetworkTipsConfirmBtn);
+        Beta.strNetworkTipsCancelBtn = getResources().getString(R.string.strNetworkTipsCancelBtn);
+        Beta.strUpgradeDialogVersionLabel = getResources().getString(R.string.strUpgradeDialogVersionLabel);
+        Beta.strUpgradeDialogFileSizeLabel = getResources().getString(R.string.strUpgradeDialogFileSizeLabel);
+        Beta.strUpgradeDialogUpdateTimeLabel = getResources().getString(R.string.strUpgradeDialogUpdateTimeLabel);
+        Beta.strUpgradeDialogFeatureLabel = getResources().getString(R.string.strUpgradeDialogFeatureLabel);
+        Beta.strUpgradeDialogUpgradeBtn = getResources().getString(R.string.strUpgradeDialogUpgradeBtn);
+        Beta.strUpgradeDialogInstallBtn = getResources().getString(R.string.strUpgradeDialogInstallBtn);
+        Beta.strUpgradeDialogRetryBtn = getResources().getString(R.string.strUpgradeDialogRetryBtn);
+        Beta.strUpgradeDialogContinueBtn = getResources().getString(R.string.strUpgradeDialogContinueBtn);
+        Beta.strUpgradeDialogCancelBtn = getResources().getString(R.string.strUpgradeDialogCancelBtn);
     }
 
 }

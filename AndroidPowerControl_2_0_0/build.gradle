@@ -8,8 +8,8 @@ android {
         applicationId "com.dj.androidpowercontrol_2_0_0"
         minSdkVersion 19
         targetSdkVersion 24
-        versionCode 1
-        versionName "1.0"
+        versionCode 3
+        versionName "3.0"
         ndk {
             moduleName "libkingsun"
             //设置支持的SO库架构 android版本更新

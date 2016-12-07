@@ -26,6 +26,7 @@ public class MyApplication extends Application {
 
     private static MyApplication myApplication;
 
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -38,46 +39,46 @@ public class MyApplication extends Application {
          * 开发者如果担心sdk初始化影响app启动速度，可以设置为false
          * 在后面某个时刻手动调用
          */
-        Beta.autoInit = true;
+//        Beta.autoInit = true;
 
         /**
          * true表示初始化时自动检查升级
          * false表示不会自动检查升级，需要手动调用Beta.checkUpgrade()方法
          */
-        Beta.autoCheckUpgrade = true;
+        Beta.autoCheckUpgrade = false;
 
         /**
          * 设置升级周期为60s（默认检查周期为0s），60s内SDK不重复向后天请求策略
          */
-        Beta.initDelay = 60 * 1000;
+//        Beta.initDelay = 60 * 1000;
 
         /**
          * 设置通知栏大图标，largeIconId为项目中的图片资源；
          */
-        Beta.largeIconId = R.mipmap.ic_launcher;
+//        Beta.largeIconId = R.mipmap.ic_launcher;
 
         /**
          * 设置状态栏小图标，smallIconId为项目中的图片资源id;
          */
-        Beta.smallIconId = R.mipmap.ic_launcher;
+//        Beta.smallIconId = R.mipmap.ic_launcher;
 
 
         /**
          * 设置更新弹窗默认展示的banner，defaultBannerId为项目中的图片资源Id;
          * 当后台配置的banner拉取失败时显示此banner，默认不设置则展示“loading“;
          */
-        Beta.defaultBannerId = R.mipmap.ic_launcher;
+//        Beta.defaultBannerId = R.mipmap.ic_launcher;
 
         /**
          * 设置sd卡的Download为更新资源保存目录;
          * 后续更新资源会保存在此目录，需要在manifest中添加WRITE_EXTERNAL_STORAGE权限;
          */
-        Beta.storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+//        Beta.storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
 
         /**
          * 点击过确认的弹窗在APP下次启动自动检查更新时会再次显示;
          */
-        Beta.showInterruptedStrategy = true;
+//        Beta.showInterruptedStrategy = true;
 
         /**
          * 只允许在MainActivity上显示更新弹窗，其他activity上不显示弹窗;
@@ -116,10 +117,10 @@ public class MyApplication extends Application {
          *  view - 升级对话框的根布局视图，可通过这个对象查找指定view控件
          *  upgradeInfo - 升级信息
          */
-        Beta.upgradeDialogLifecycleListener = new UILifecycleListener<UpgradeInfo>() {
-            @Override
-            public void onCreate(Context context, View view, UpgradeInfo upgradeInfo) {
-                Log.d(TAG, "onCreate");
+//        Beta.upgradeDialogLifecycleListener = new UILifecycleListener<UpgradeInfo>() {
+//            @Override
+//            public void onCreate(Context context, View view, UpgradeInfo upgradeInfo) {
+//                Log.d(TAG, "onCreate");
 //                // 注：可通过这个回调方式获取布局的控件，如果设置了id，可通过findViewById方式获取，如果设置了tag，可以通过findViewWithTag，具体参考下面例子:
 //
 //                // 通过id方式获取控件，并更改imageview图片
@@ -139,34 +140,34 @@ public class MyApplication extends Application {
 //                        startActivity(intent);
 //                    }
 //                });
-            }
-
-            @Override
-            public void onStart(Context context, View view, UpgradeInfo upgradeInfo) {
-                Log.d(TAG, "onStart");
-            }
-
-            @Override
-            public void onResume(Context context, View view, UpgradeInfo upgradeInfo) {
-                Log.d(TAG, "onResume");
-            }
-
-            @Override
-            public void onPause(Context context, View view, UpgradeInfo upgradeInfo) {
-                Log.d(TAG, "onPause");
-            }
-
-            @Override
-            public void onStop(Context context, View view, UpgradeInfo upgradeInfo) {
-                Log.d(TAG, "onStop");
-            }
-
-            @Override
-            public void onDestroy(Context context, View view, UpgradeInfo upgradeInfo) {
-                Log.d(TAG, "onDestory");
-            }
-        };
-
+//            }
+//
+//            @Override
+//            public void onStart(Context context, View view, UpgradeInfo upgradeInfo) {
+//                Log.d(TAG, "onStart");
+//            }
+//
+//            @Override
+//            public void onResume(Context context, View view, UpgradeInfo upgradeInfo) {
+//                Log.d(TAG, "onResume");
+//            }
+//
+//            @Override
+//            public void onPause(Context context, View view, UpgradeInfo upgradeInfo) {
+//                Log.d(TAG, "onPause");
+//            }
+//
+//            @Override
+//            public void onStop(Context context, View view, UpgradeInfo upgradeInfo) {
+//                Log.d(TAG, "onStop");
+//            }
+//
+//            @Override
+//            public void onDestroy(Context context, View view, UpgradeInfo upgradeInfo) {
+//                Log.d(TAG, "onDestory");
+//            }
+//        };
+//
 
         /**
          * 已经接入Bugly用户改用上面的初始化方法,不影响原有的crash上报功能;
@@ -191,7 +192,6 @@ public class MyApplication extends Application {
         //        Bugly.init(getApplicationContext(), APP_ID, true, strategy);
 
     }
-
 
     public static Context getAppContext() {
         return myApplication;

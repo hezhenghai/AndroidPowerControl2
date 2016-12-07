@@ -3,9 +3,12 @@ package com.dj.androidpowercontrol_2_0_0.entity;
 import java.io.Serializable;
 
 /**
- * 保存地址，uuid，code返回信息
+ * Created by Administrator
+ * on 2016/12/7.
  */
-public class PowerStateMsg implements Serializable {
+
+public class TotalTimeData implements Serializable {
+
     private String data;
     private boolean success;
     private String messages;

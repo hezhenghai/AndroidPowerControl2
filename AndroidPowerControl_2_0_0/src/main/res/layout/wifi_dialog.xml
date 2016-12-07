@@ -17,13 +17,15 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="网络设置提示"
+            android:text="Network Setting Indication"
             android:textColor="#2eb6aa"
             android:textSize="30sp" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="0dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="20dp"
             android:layout_weight="1"
             android:gravity="center"
             android:orientation="horizontal">
@@ -37,7 +39,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:text="网络连接不可用，是否进行设置?"
+                android:text="Network unavailable,\nplease check the setting."
                 android:textColor="#ff6600"
                 android:textSize="28sp" />
         </LinearLayout>
@@ -63,7 +65,7 @@
                     android:layout_centerInParent="true"
                     android:background="@drawable/image_wifi_button"
                     android:gravity="center"
-                    android:text="取消"
+                    android:text="Cancel"
                     android:textColor="#2eb6aa"
                     android:textSize="24sp" />
 
@@ -83,7 +85,7 @@
                     android:layout_centerInParent="true"
                     android:background="@drawable/image_wifi_button"
                     android:gravity="center"
-                    android:text="设置"
+                    android:text="Setting"
                     android:textColor="#2eb6aa"
                     android:textSize="24sp" />
 

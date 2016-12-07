@@ -1,3 +1,28 @@
 <resources>
     <string name="app_name">AndroidPowerControl_2_0_0</string>
+
+    <!--/*自定义文案，修改后立即生效，默认控件文案如下*/-->
+    <string name="strToastYourAreTheLatestVersion">You are the latest version</string>
+    <string name="strToastCheckUpgradeError">Check new version failed, please try again later</string>
+    <string name="strToastCheckingUpgrade">Is checking, please wait</string>
+    <string name="strNotificationDownloading">Loading</string>
+    <string name="strNotificationClickToView">Click</string>
+    <string name="strNotificationClickToInstall">Click install</string>
+    <string name="strNotificationClickToRetry">Click retry</string>
+    <string name="strNotificationDownloadSucc">Download</string>
+    <string name="strNotificationDownloadError">Download failure</string>
+    <string name="strNotificationHaveNewVersion">With the new version</string>
+    <string name="strNetworkTipsMessage">You have to switch to the mobile network, whether to continue the download?</string>
+    <string name="strNetworkTipsTitle">Network tip</string>
+    <string name="strNetworkTipsConfirmBtn">Continue to download</string>
+    <string name="strNetworkTipsCancelBtn">Cancel</string>
+    <string name="strUpgradeDialogVersionLabel">Version</string>
+    <string name="strUpgradeDialogFileSizeLabel">Package size</string>
+    <string name="strUpgradeDialogUpdateTimeLabel">Update time</string>
+    <string name="strUpgradeDialogFeatureLabel">Update instructions</string>
+    <string name="strUpgradeDialogUpgradeBtn">Update now</string>
+    <string name="strUpgradeDialogInstallBtn">Install</string>
+    <string name="strUpgradeDialogRetryBtn">Try again</string>
+    <string name="strUpgradeDialogContinueBtn">Continue</string>
+    <string name="strUpgradeDialogCancelBtn">Next time again say</string>
 </resources>

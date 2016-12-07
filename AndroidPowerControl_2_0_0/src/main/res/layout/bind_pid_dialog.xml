@@ -17,7 +17,7 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="绑定设备"
+            android:text="Bind the device"
             android:textColor="#2eb6aa"
             android:textSize="30sp" />
 
@@ -27,7 +27,7 @@
             android:layout_width="500dp"
             android:layout_height="80dp"
             android:layout_centerInParent="true"
-            android:hint="请输入需要绑定的设备id" />
+            android:hint="Please enter the binded device`s ID" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -50,7 +50,7 @@
                     android:layout_centerInParent="true"
                     android:background="@drawable/image_wifi_button"
                     android:gravity="center"
-                    android:text="绑定"
+                    android:text="Bind"
                     android:textColor="#2eb6aa"
                     android:textSize="24sp" />
 
