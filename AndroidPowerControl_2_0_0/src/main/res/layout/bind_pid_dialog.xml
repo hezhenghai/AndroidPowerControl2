@@ -21,13 +21,14 @@
             android:textColor="#2eb6aa"
             android:textSize="30sp" />
 
+        <!--//弹出英文输入法-->
         <EditText
             android:id="@+id/et_bind_id"
             style="@style/mEditText"
             android:layout_width="500dp"
             android:layout_height="80dp"
-            android:layout_centerInParent="true"
-            android:hint="Please enter the binded device`s ID" />
+            android:hint="Please enter the binded device`s ID"
+            android:inputType="textVisiblePassword" />
 
         <LinearLayout
             android:layout_width="match_parent"
