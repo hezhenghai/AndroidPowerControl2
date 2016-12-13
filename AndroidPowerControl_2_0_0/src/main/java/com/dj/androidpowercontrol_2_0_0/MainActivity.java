@@ -287,9 +287,6 @@ public class MainActivity extends Activity {
         bindBuilder = new BindPidDialog.Builder(MainActivity.this);
         bindDialog = bindBuilder.create();
         bindDialog.setCanceledOnTouchOutside(false);// 点击外部区域不关闭
-        loadBuilder = new LoadProgressDialog.Builder(MainActivity.this);
-        loadDialog = loadBuilder.create();
-        loadDialog.setCanceledOnTouchOutside(false);// 点击外部区域不关闭
     }
 
     /**
@@ -537,6 +534,13 @@ public class MainActivity extends Activity {
      * 发送网络请求，绑定设备
      */
     private synchronized void bindDevice(final String deviceID) {
+        if (loadDialog != null || loadBuilder != null) {
+            loadDialog = null;
+            loadBuilder = null;
+            loadBuilder = new LoadProgressDialog.Builder(MainActivity.this);
+            loadDialog = loadBuilder.create();
+            loadDialog.setCanceledOnTouchOutside(false);// 点击外部区域不关闭
+        }
         loadDialog.show();
         Util.showLog("TAG", "uuid : " + deviceID + "\nlongitude : " + longitude + "\nlatiude : " + latitude + "\ncode : " + MyConfig.CODE + "\npId : " + cpuid + "\naddress : " + address);
         OkHttpUtils

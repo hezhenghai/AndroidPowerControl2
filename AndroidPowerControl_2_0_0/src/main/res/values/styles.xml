@@ -70,6 +70,8 @@
         <item name="android:backgroundDimAmount">0.92</item>
         <!--显示区域以外是否使用黑色半透明背景-->
         <item name="android:backgroundDimEnabled">true</item>
+        <!--是否点击外部关闭-->
+        <item name="android:windowCloseOnTouchOutside">false</item>
         <!--显示在屏幕中间-->
         <item name="android:layout_centerInParent">true</item>
         <!--&lt;!&ndash;最小宽度&ndash;&gt;-->
