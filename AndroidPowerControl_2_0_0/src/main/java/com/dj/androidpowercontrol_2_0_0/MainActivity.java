@@ -195,13 +195,13 @@ public class MainActivity extends Activity {
                 try {
                     wifiInfo = wifiManager.getConnectionInfo();
                     level = wifiInfo.getRssi();
-                    Util.showLog("TAG", "wifi-------------- " + level);
+                    Util.showLog("wifi", "wifi-level------------- " + level);
                     //根据获得的信号强度发送信息
-                    if (level <= 0 && level >= -50) {
+                    if (0 >= level && level >= -50) {
                         iv_wifi.setImageResource(R.drawable.icon_wifi_strong);
-                    } else if (level < -50 && level >= -90) {
+                    } else if (-50 > level && level >= -90) {
                         iv_wifi.setImageResource(R.drawable.icon_wifi_mediu);
-                    } else if (level < -90 && level > -200) {
+                    } else if (-90 > level && level > -200) {
                         iv_wifi.setImageResource(R.drawable.icon_wifi_weak);
                     } else {
                         iv_wifi.setImageResource(R.drawable.icon_wifi_no);
@@ -456,9 +456,8 @@ public class MainActivity extends Activity {
                     String dID = getDeviceId();
                     if (dID != null) {
                         bindDevice(dID);
-                    } else {
-                        getTotalTime();
                     }
+                    getTotalTime();
                     mLocationClient.stop();
                 }
             }
@@ -534,13 +533,15 @@ public class MainActivity extends Activity {
      * 发送网络请求，绑定设备
      */
     private synchronized void bindDevice(final String deviceID) {
-        if (loadDialog != null || loadBuilder != null) {
+        if (loadDialog != null) {
             loadDialog = null;
-            loadBuilder = null;
-            loadBuilder = new LoadProgressDialog.Builder(MainActivity.this);
-            loadDialog = loadBuilder.create();
-            loadDialog.setCanceledOnTouchOutside(false);// 点击外部区域不关闭
         }
+        if (loadBuilder != null) {
+            loadBuilder = null;
+        }
+        loadBuilder = new LoadProgressDialog.Builder(MainActivity.this);
+        loadDialog = loadBuilder.create();
+        loadDialog.setCanceledOnTouchOutside(false);// 点击外部区域不关闭
         loadDialog.show();
         Util.showLog("TAG", "uuid : " + deviceID + "\nlongitude : " + longitude + "\nlatiude : " + latitude + "\ncode : " + MyConfig.CODE + "\npId : " + cpuid + "\naddress : " + address);
         OkHttpUtils
@@ -553,9 +554,9 @@ public class MainActivity extends Activity {
                 .addParams("pId", cpuid)
                 .addParams("address", address)
                 .build()
-                .connTimeOut(10000)
-                .readTimeOut(10000)
-                .writeTimeOut(10000)
+                .connTimeOut(8000)
+                .readTimeOut(8000)
+                .writeTimeOut(8000)
                 .execute(new StringCallback() {
                     @Override
                     public void onError(Call call, final Exception e, int i) {
